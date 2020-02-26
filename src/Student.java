@@ -1,14 +1,11 @@
-/**
-	This class serves as an abstract class for other types of Student classes to use
-  	
-  	This class contains a constructor, toString(), and compareTo() that other subclasses will be using
-  	in their implementation. The tuitionDue() method will be overwritten in other classes. This class also
-  	contains constants that will also be used in the subclasses.
-  	
-  	@author "Michael Loh"
- 
- */
 
+/**
+ * 	This class serves as an abstract class for other types of Student classes to use
+ * 	This class contains a constructor, toString(), and compareTo() that other subclasses will be using
+ *	in their implementation. The tuitionDue() method will be overwritten in other classes. This class also
+ * 	contains constants that will also be used in the subclasses.
+ * 	@author Michael Loh
+ */
 
 public abstract class Student implements Comparable {
 	
