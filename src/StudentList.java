@@ -3,7 +3,7 @@
  * It has operations to add and remove students from this list.
  * This class is implemented as a dynamic sized array, where the array will grow in size when
  * the array is full.
- * @author micha
+ * @author Michael Loh
  *
  */
 
