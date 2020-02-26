@@ -1,10 +1,7 @@
 /**
  * This class serves as an instate student representation of the Student class.
- * 
  * This class implememnts the tuitionDue() method for an instate student, and it overrides the toString() method.
- * 
  * @author "Michael Loh"
- *
  */
 public class Instate extends Student{
 	
@@ -29,7 +26,7 @@ public class Instate extends Student{
 	 * This method calculates the amount of tuition that is due for an instate student
 	 * The student pays Tuition per credit taken, but if the student exceeds 15 credits, they only pay 15 credits worth.
 	 * If the student takes < 12 credits, they pay a part time fee, otherwise, they pay a full time fee.
-	 * If the student receives funds, that amount is subtracted from the tuition total.
+	 * If the student receives funds and is a full time student, that amount is subtracted from the tuition total.
 	 */
 	@Override
 	public int tuitionDue() {
@@ -47,7 +44,7 @@ public class Instate extends Student{
 			bill += PART_TIME_FEE;
 		}
 		
-		bill -= funds;
+		bill -= (creditAmount >= 12) ? funds : 0;
 		return bill;
 	}
 	
@@ -60,7 +57,7 @@ public class Instate extends Student{
 	}
 	
 	public static void main(String[]args) {
-		Instate i1 = new Instate("Michael", "Loh", 17, 1000);
+		Instate i1 = new Instate("Michael", "Loh", 12, 0);
 		System.out.println(i1.toString());
 		System.out.println(i1.tuitionDue());
 		
