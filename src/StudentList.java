@@ -1,3 +1,11 @@
+/**
+ * This class is used to store all student types in a list.
+ * It has operations to add and remove students from this list.
+ * This class is implemented as a dynamic sized array, where the array will grow in size when
+ * the array is full.
+ * @author micha
+ *
+ */
 
 public class StudentList {
 	
@@ -5,11 +13,21 @@ public class StudentList {
 	private Student[] list;
 	private int totalStudents;
 	
+	/**
+	 * The constructor initializes the array that will store all of the students.
+	 * It is initialized at array size 10.
+	 * It also intializes the totalStudents to 0.
+	 */
 	public StudentList() {
 		list = new Student[10];
 		totalStudents = 0;
 	}
 	
+	/**
+	 * This method adds a student into the list.
+	 * If list is full, it calls grow() add more space to the list.
+	 * @param s is the student that will be added into the list.
+	 */
 	public void add(Student s) {
 		if( totalStudents == list.length ) {
 			grow();
@@ -17,6 +35,13 @@ public class StudentList {
 		list[totalStudents++] = s;
 	}
 	
+	/**
+	 * This method removes a student from the list.
+	 * It calls the findStudent() method to find the index of the student that should be removed.
+	 * If the student is not found, the method returns without doing anything.
+	 * When the student is found, it removes that student and shifts every student to the right of it over one space.
+	 * @param s is the student that will be removed from the list.
+	 */
 	public void remove(Student s) {
 	
 		int index = findStudent(s);
@@ -32,6 +57,9 @@ public class StudentList {
 		list[totalStudents] = null;
 	}
 	
+	/**
+	 * This method prints each student in the list with their tuition due.
+	 */
 	public void print() {
 		for(int i = 0; i < totalStudents; i++) {
 			System.out.println(list[i].toString());
@@ -40,6 +68,12 @@ public class StudentList {
 		}
 	}
 	
+	/**
+	 * This method grows list by GROW_SIZE.
+	 * It creates a new list with size list.length + GROW_SIZE.
+	 * It then copies over everything over from the old list into the new list. 
+	 * Then it assigns the new list to list.
+	 */
 	private void grow() {
 		Student[] newList = new Student[list.length + GROW_SIZE];
 		for(int i = 0; i < list.length; i++) {
@@ -49,6 +83,12 @@ public class StudentList {
 		list = newList;
 	}
 	
+	/**
+	 * This method finds the index of a student in the list.
+	 * It searches the list using sequential search.
+	 * @param s is the student that is being searched for.
+	 * @return the index is found or -1 if the student isn't found.
+	 */
 	private int findStudent(Student s) {
 		
 		for(int i = 0; i < list.length; i++) {
@@ -59,6 +99,11 @@ public class StudentList {
 		return -1;
 	}
 	
+	/**
+	 * This method checks if a student exists in the list.
+	 * @param s is the student being searched for.
+	 * @return true if the student is within the list and false if the student is not in the list.
+	 */
 	public boolean contains(Student s) {
 		
 		for(Student t: list) {
@@ -85,3 +130,4 @@ public class StudentList {
 		System.out.println(s1.compareTo(s1));
 	}
 }
+
