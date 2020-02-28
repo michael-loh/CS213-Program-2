@@ -3,7 +3,7 @@
  * It has operations to add and remove students from this list.
  * This class is implemented as a dynamic sized array, where the array will grow in size when
  * the array is full.
- * @author Michael Loh
+ * @author micha
  *
  */
 
@@ -106,13 +106,18 @@ public class StudentList {
 	 */
 	public boolean contains(Student s) {
 		
-		for(Student t: list) {
+		for(int i = 0; i < totalStudents; i++) {
+			Student t = list[i];
 			if(s.compareTo(t) == 0)
 				return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * This method checks if the list is empty.
+	 * @return true if empty and false if not.
+	 */
 	public boolean isEmpty() {
 		return (totalStudents == 0)? true:false;
 	}
@@ -134,4 +139,3 @@ public class StudentList {
 		System.out.println(s1.compareTo(s1));
 	}
 }
-
