@@ -7,10 +7,8 @@ import java.util.Scanner;
 public class TuitionManager {
 	Scanner stdin;
 	StudentList list;
-
-
 	
-	private void run() {
+	void run() {
 		stdin = new Scanner(System.in);
 		list = new StudentList();
 		boolean done = false;
@@ -23,13 +21,13 @@ public class TuitionManager {
 			switch ( command )  
 			{   
 				case "I":  
-					inStateAdd();
+					instateAdd();
 					break; 
 				case "O": 
-					outStateAdd();
+					outstateAdd();
 					break;
 				case "N": 
-					international();
+					internationalAdd();
 					break;
 				case "R": 
 					remove();
@@ -38,7 +36,7 @@ public class TuitionManager {
 					print();
 					break;
 				case "Q":
-					quit();
+					quitMessage();
 					done = true;
 				default: 
 					System.out.println("Command '" + command + "' is not supported!");
@@ -47,7 +45,7 @@ public class TuitionManager {
 		}
 	}
 	
-	private void inStateAdd() {
+	private void instateAdd() {
 		String fname = stdin.next();
 		String lname = stdin.next();
 		int credit = Integer.parseInt(stdin.next());
@@ -67,7 +65,36 @@ public class TuitionManager {
 		 }
 		 list.add(s);
 	}
-	private void international() {
+	
+	private void outstateAdd() {
+		String fname = stdin.next();
+		String lname = stdin.next();
+		
+		String num = stdin.next();
+		int credit = Integer.parseInt(num);
+		if(credit < 1) {
+			invalidCredit();
+			return;
+		}
+		
+		String bool = stdin.next();
+		if(! ( (bool.equals("T") || bool.contentEquals("F") ) ) ){
+			invalidTriState();
+			return;
+		}
+		boolean tristate = (bool.equals("T"))? true: false;
+		
+		Outstate s = new Outstate(fname, lname, credit, tristate);
+		
+		if(list.contains(s)) {
+			studentInListError();
+			return;
+		}
+		
+		list.add(s);
+	}
+	
+	private void internationalAdd() {
 		String fname = stdin.next();
 		String lname = stdin.next();
 		int credit = Integer.parseInt(stdin.next());
@@ -101,6 +128,20 @@ public class TuitionManager {
 		}
 	}
 	
+	private void remove() {
+		String fname = stdin.next();
+		String lname = stdin.next();
+		
+		Student s = new Instate(fname, lname, 0, 0);
+		
+		if(!list.contains(s)) {
+			notInListError(fname, lname);
+			return;
+		}
+		
+		list.remove(s);
+	}
+	
 	private void invalidCredit() {
 		System.out.println("Invalid credit amount!");
 	}
@@ -110,12 +151,19 @@ public class TuitionManager {
 	private void studentInListError() {
 		System.out.println("Student is already in list");
 	}
+	private void invalidTriState() {
+		System.out.println("Invalid tri-state value");
+	}
+	private void notInListError(String fname, String lname) {
+		System.out.println(fname + " " + lname + " was not found in the list");
+	}
 	private void invalidExchangeStatus(){
-		System.out.println("Invalid exchange student Status");
-		
+		System.out.println("Invalid exchange student Status");	
 	}
 	private void listEmptyError() {
 		System.out.println("Printing an empty list");
 	}
-
+	private void quitMessage() {
+		System.out.println("Program Terminated");
+	}
 }
