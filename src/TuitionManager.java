@@ -66,6 +66,13 @@ public class TuitionManager {
 		 list.add(s);
 	}
 	
+	
+	/**
+	 * This method adds an out of state student into the list.
+	 * It takes 4 inputs from stdin, and then checks that inputs are valid.
+	 * It creates an Oustate object using the inputs, and then searches the list for a Student with the same name.
+	 * If found, it calls studentInListError(), otherwise, it adds the student into the list.
+	 */
 	private void outstateAdd() {
 		String fname = stdin.next();
 		String lname = stdin.next();
@@ -78,7 +85,7 @@ public class TuitionManager {
 		}
 		
 		String bool = stdin.next();
-		if(! ( (bool.equals("T") || bool.contentEquals("F") ) ) ){
+		if(! ( (bool.equals("T") || bool.equals("F") ) ) ){
 			invalidTriState();
 			return;
 		}
@@ -126,8 +133,17 @@ public class TuitionManager {
 			listEmptyError();
 			return;
 		}
+		list.print();
 	}
 	
+	
+	/**
+	 * This method removes a student from the list.
+	 * It takes fname and lname, and then it creates a Student object using those inputs.
+	 * It then searches the list to see if anyone has the same name.
+	 * If not found, it calls notInListError().
+	 * If found, it removes the student from the list.
+	 */
 	private void remove() {
 		String fname = stdin.next();
 		String lname = stdin.next();
@@ -142,27 +158,67 @@ public class TuitionManager {
 		list.remove(s);
 	}
 	
+	/**
+	 * This method alerts the user that the credit amount that they input is invalid.
+	 */
 	private void invalidCredit() {
 		System.out.println("Invalid credit amount!");
 	}
+	
+	/**
+	 * This method alerts the user that the fund amount that they input is invalid.
+	 */
 	private void invalidFunds() {
 		System.out.println("Invalid fund amount!");
 	}
+	
+	/**
+	 * This method alerts the user that they are trying to add a student that is already in the list 
+	 */
 	private void studentInListError() {
 		System.out.println("Student is already in list");
 	}
+	
+	/**
+	 * This method alerts the user of an invalid tri-state input
+	 */
 	private void invalidTriState() {
-		System.out.println("Invalid tri-state value");
+		System.out.println("Invalid tri-state input");
 	}
+	
+	/**
+	 * This method alerts user that student is not in list
+	 * @param fname is the first name of the student
+	 * @param lname is the last name of the student
+	 */
 	private void notInListError(String fname, String lname) {
 		System.out.println(fname + " " + lname + " was not found in the list");
 	}
+	
+	/**
+	 * This alerts the user of an invalid exchange student input
+	 */
 	private void invalidExchangeStatus(){
-		System.out.println("Invalid exchange student Status");	
+		System.out.println("Invalid exchange student input");	
 	}
+	
+	/**
+	 * This method alerts that the user is trying to print from an empty list.
+	 */
 	private void listEmptyError() {
 		System.out.println("Printing an empty list");
 	}
+	
+	/**
+	 * This method alerts the user that they are trying to remove a student from an empty list
+	 */
+	private void removeFromEmptyListError() {
+		System.out.println("Can't remove from an empty list");
+	}
+	
+	/**
+	 * This method alerts user of a successful quit
+	 */
 	private void quitMessage() {
 		System.out.println("Program Terminated");
 	}
