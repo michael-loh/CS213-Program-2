@@ -113,6 +113,10 @@ public class StudentList {
 		return false;
 	}
 	
+	public boolean isEmpty() {
+		return (totalStudents == 0)? true:false;
+	}
+	
 	public static void main(String[]args) {
 		
 		StudentList list = new StudentList();
