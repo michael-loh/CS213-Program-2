@@ -38,7 +38,7 @@ public class TuitionManager {
 					print();
 					break;
 				case "Q":
-					quit();
+					quitMessage();
 					done = true;
 				default: 
 					System.out.println("Command '" + command + "' is not supported!");
@@ -96,7 +96,7 @@ public class TuitionManager {
 		list.add(s);
 	}
 	
-	public void remove() {
+	private void remove() {
 		String fname = stdin.next();
 		String lname = stdin.next();
 		
@@ -124,5 +124,8 @@ public class TuitionManager {
 	}
 	private void notInListError(String fname, String lname) {
 		System.out.println(fname + " " + lname + " was not found in the list");
+	}
+	private void quitMessage() {
+		System.out.println("Program Terminated");
 	}
 }
