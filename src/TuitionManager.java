@@ -7,7 +7,17 @@ import java.util.Scanner;
 public class TuitionManager {
 	Scanner stdin;
 	StudentList list;
-	
+	/**
+	 * This method initializes a scanner and goes through the commands inputed
+	 * Command I calls instateAdd()
+	 * Command O calls outstateAdd()
+	 * Command N calls international()
+	 * Command R calls remove()
+	 * Command P calls print()
+	 * Command Q calls quit() and ends the loop
+	 * Defaults when the command is invalid and moves to the next line 
+	 * 
+	 */
 	void run() {
 		stdin = new Scanner(System.in);
 		list = new StudentList();
@@ -44,7 +54,11 @@ public class TuitionManager {
 			}  
 		}
 	}
-	
+	/**
+	 *This method adds an in-state student to the list of students
+	 *It reads the student's first name, last name, number of credits, and amount of funds.
+	 *It checks whether the amount of credits and  funds is valid and also checks if the student is already in the list
+	 */
 	private void instateAdd() {
 		String fname = stdin.next();
 		String lname = stdin.next();
@@ -100,7 +114,11 @@ public class TuitionManager {
 		
 		list.add(s);
 	}
-	
+	/**
+	 * This method adds an international student to the list of students
+	 * It reads the first name, last name, number of credits, and the exchange status of the student
+	 * It checks whether the number of credits is below 9, if the exchange status is valid and if the student is already contained in the list
+	 */
 	private void internationalAdd() {
 		String fname = stdin.next();
 		String lname = stdin.next();
@@ -127,7 +145,9 @@ public class TuitionManager {
 		 }
 		 list.add(i);
 	}
-	
+	/**
+	 * This method checks if the list is empty and prints if it is not empty
+	 */
 	private void print() {
 		if (list.isEmpty()){
 			listEmptyError();
@@ -223,3 +243,4 @@ public class TuitionManager {
 		System.out.println("Program Terminated");
 	}
 }
+
