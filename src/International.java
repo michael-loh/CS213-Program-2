@@ -26,7 +26,8 @@ public class International extends Student {
 	/**
 	 * This method calculates the tuition due for an international student.
 	 * If it is an exchange student, they avoid paying tuition, otherwise, they pay $945 per credit.
-	 * An international student must also pay a full time fee if >= 12 credits and part time fee is < 12.
+	 * An international student must also pay a full time fee if they take at least 12 credits.
+	 * They would pay a part time fee if they took less than 12 credits.
 	 * An international student must also pay the international student fee, which is 350.
 	 */
 	@Override
@@ -63,9 +64,29 @@ public class International extends Student {
 		return super.toString() + ",[exchange:" + exchange + "]";
 	}
 	
+	/**
+	 * Test bed main.
+	 * Test cases for Outstate are here.
+	 * @param args: no command line arguments.
+	 */
 	public static void main(String[]args) {
-		International i1 = new International("Soo-Hyeuk", "Kim", 12, true);
+		International i1 = new International("Rick", "Sanchez", 11, false);
 		System.out.println(i1.toString());
 		System.out.println(i1.tuitionDue());
+		
+		
+		International i2 = new International("Jonathon", "Wang", 12, false);
+		International i3 = new International("Cindy", "Fan", 15, false);
+		International i4 = new International("Allison", "Kwon", 18, false);
+		System.out.println(i2.tuitionDue());
+		System.out.println(i3.tuitionDue());
+		System.out.println(i4.tuitionDue());
+
+		International i5 = new International("Jack", "Ma", 11, true);
+		International i6 = new International("Jackie", "Chan", 13, true);
+		International i7 = new International("Bruce", "Lee", 16, true);
+		System.out.println(i5.tuitionDue());
+		System.out.println(i6.tuitionDue());
+		System.out.println(i7.tuitionDue());
 	}
 }
