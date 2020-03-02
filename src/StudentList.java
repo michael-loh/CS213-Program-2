@@ -122,20 +122,4 @@ public class StudentList {
 		return (totalStudents == 0)? true:false;
 	}
 	
-	public static void main(String[]args) {
-		
-		StudentList list = new StudentList();
-		
-		Instate s1 = new Instate("Michael", "Loh", 15, 1000);
-		
-		list.add(s1);
-		//list.print();
-		
-		Outstate s2 = new Outstate("Eric", "He", 17, true);
-		list.add(s2);
-		//list.print();
-		list.print();
-		
-		System.out.println(s1.compareTo(s1));
-	}
 }
