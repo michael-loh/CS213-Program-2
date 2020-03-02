@@ -33,8 +33,8 @@ public abstract class Student implements Comparable {
 	/**
 	 * This method compares the current student with another object to determine if they are equal.
 	 * If the names are equal, then the objects are equal.
-	 * Returns 0 when the first andlast name are the same.
-	 * Otherwise it returns -1 if this < obj and 1 if this > obj
+	 * Returns 0 when the first and last names are the same.
+	 * It returns a non zero value if they are not the same.
 	 * @param obj is the object that is being compared
 	 */
 	public int compareTo(Object obj) {
@@ -63,7 +63,6 @@ public abstract class Student implements Comparable {
 	/**
 	 * This abstract method will return the tuition due for a given student.
 	 * It will be implemented in subclasses
-	 * @return
 	 */
 	public abstract int tuitionDue();
 	
