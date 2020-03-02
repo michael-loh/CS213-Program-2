@@ -1,69 +1,124 @@
-
 /**
- * 	This class serves as an abstract class for other types of Student classes to use
- * 	This class contains a constructor, toString(), and compareTo() that other subclasses will be using
- *	in their implementation. The tuitionDue() method will be overwritten in other classes. This class also
- * 	contains constants that will also be used in the subclasses.
- * 	@author Michael Loh
+ * This class is used to store all student types in a list.
+ * It has operations to add and remove students from this list.
+ * This class is implemented as a dynamic sized array, where the array will grow in size when
+ * the array is full.
+ * @author micha
+ *
  */
 
-public abstract class Student implements Comparable {
+public class StudentList {
 	
-	protected final int PART_TIME_FEE = 846;
-	protected final int FULL_TIME_FEE = 1441;
-	
-	private String fname;
-	private String lname;
-	protected int credit;
-	
+	private final int GROW_SIZE = 10;
+	private Student[] list;
+	private int totalStudents;
 	
 	/**
-	 * The constructor takes arguments and assigns them to the classes global variables.
-	 * @param fname is the first name of the student
-	 * @param lname is the last name of the student
-	 * @param credit is the amount of credits that the student is taking
+	 * The constructor initializes the array that will store all of the students.
+	 * It is initialized at array size 10.
+	 * It also intializes the totalStudents to 0.
 	 */
-	public Student(String fname, String lname, int credit) {
-		this.fname = fname;
-		this.lname = lname;
-		this.credit = credit;
-	} 
-	
-	
-	/**
-	 * This method compares the current student with another object to determine if they are equal.
-	 * If the names are equal, then the objects are equal.
-	 * Returns 0 when the first and last names are the same.
-	 * It returns a non zero value if they are not the same.
-	 * @param obj is the object that is being compared
-	 */
-	public int compareTo(Object obj) {
-		
-		if(obj.getClass().getSuperclass() != this.getClass().getSuperclass()) {
-			return -1;
-		}
-		
-		Student student = (Student)obj;
-		if(student.fname.equals(this.fname) && student.lname.equals(this.lname)) {
-			return 0;
-		}
-		
-		return ( this.fname.compareTo(student.fname) == 0) ? this.lname.compareTo(student.lname) : this.fname.compareTo(student.fname);
+	public StudentList() {
+		list = new Student[10];
+		totalStudents = 0;
 	}
 	
-	
 	/**
-	 * This toString() method returns fname, lname, and credit in a string.
+	 * This method adds a student into the list.
+	 * If list is full, it calls grow() add more space to the list.
+	 * @param s is the student that will be added into the list.
 	 */
-	public String toString() {
-		return fname + " " + lname + ": [credit:" + credit + "]";
+	public void add(Student s) {
+		if( totalStudents == list.length ) {
+			grow();
+		}
+		list[totalStudents++] = s;
 	}
 	
+	/**
+	 * This method removes a student from the list.
+	 * It calls the findStudent() method to find the index of the student that should be removed.
+	 * If the student is not found, the method returns without doing anything.
+	 * When the student is found, it removes that student and shifts every student to the right of it over one space.
+	 * @param s is the student that will be removed from the list.
+	 */
+	public void remove(Student s) {
+	
+		int index = findStudent(s);
+		
+		if(index == -1) {
+			return;
+		}
+		
+		for(int i = index; i < totalStudents - 1; i++) {
+			list[i] = list[i+1];
+		}
+		totalStudents--;
+		list[totalStudents] = null;
+	}
 	
 	/**
-	 * This abstract method will return the tuition due for a given student.
-	 * It will be implemented in subclasses
+	 * This method prints each student in the list with their tuition due.
 	 */
-	public abstract int tuitionDue();
+	public void print() {
+		for(int i = 0; i < totalStudents; i++) {
+			System.out.println(list[i].toString());
+			System.out.println("Tuition due: " + list[i].tuitionDue());
+			System.out.println();
+		}
+	}
 	
+	/**
+	 * This method grows list by GROW_SIZE.
+	 * It creates a new list with size list.length + GROW_SIZE.
+	 * It then copies over everything over from the old list into the new list. 
+	 * Then it assigns the new list to list.
+	 */
+	private void grow() {
+		Student[] newList = new Student[list.length + GROW_SIZE];
+		for(int i = 0; i < list.length; i++) {
+			newList[i] = list[i];
+		}
+		
+		list = newList;
+	}
+	
+	/**
+	 * This method finds the index of a student in the list.
+	 * It searches the list using sequential search.
+	 * @param s is the student that is being searched for.
+	 * @return the index is found or -1 if the student isn't found.
+	 */
+	private int findStudent(Student s) {
+		
+		for(int i = 0; i < list.length; i++) {
+			if(s.compareTo(list[i]) == 0) 
+				return i;
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * This method checks if a student exists in the list.
+	 * @param s is the student being searched for.
+	 * @return true if the student is within the list and false if the student is not in the list.
+	 */
+	public boolean contains(Student s) {
+		
+		for(int i = 0; i < totalStudents; i++) {
+			Student t = list[i];
+			if(s.compareTo(t) == 0)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * This method checks if the list is empty.
+	 * @return true if empty and false if not.
+	 */
+	public boolean isEmpty() {
+		return (totalStudents == 0)? true:false;
+	}
 }
