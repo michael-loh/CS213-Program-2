@@ -25,7 +25,7 @@ public class Instate extends Student{
 	/**
 	 * This method calculates the amount of tuition that is due for an instate student
 	 * The student pays Tuition per credit taken, but if the student exceeds 15 credits, they only pay 15 credits worth.
-	 * If the student takes < 12 credits, they pay a part time fee, otherwise, they pay a full time fee.
+	 * If the student takes less than 12 credits, they pay a part time fee, otherwise, they pay a full time fee.
 	 * If the student receives funds and is a full time student, that amount is subtracted from the tuition total.
 	 */
 	@Override
@@ -56,13 +56,32 @@ public class Instate extends Student{
 		return super.toString() + ",[funds:" + funds + "]";  
 	}
 	
+	/**
+	 * Test bed main.
+	 * Test cases here for Instate are here.
+	 * @param args: no command line arguments.
+	 */
 	public static void main(String[]args) {
-		Instate i1 = new Instate("Michael", "Loh", 12, 0);
+		Instate i1 = new Instate("Michael", "Loh", 11, 0);
 		System.out.println(i1.toString());
 		System.out.println(i1.tuitionDue());
 		
-		Instate i2 = new Instate("Michael", "Moh", 17, 1000);
-		System.out.println(i1.compareTo(i2));
+		Student i2 = new Instate("Katie", "Perry", 11, 1000);
+		System.out.println(i2.tuitionDue());
+		
+		Student i3 = new Instate("George", "Lucas", 12, 0);
+		Student i4 = new Instate("Ben", "Kenobi", 15, 0);
+		Student i5 = new Instate("Anakin", "Skywalker", 16, 0);
+		
+		System.out.println(i3.tuitionDue());
+		System.out.println(i4.tuitionDue());
+		System.out.println(i5.tuitionDue());
+		
+		Student i6 = new Instate("Kate", "Upton", 13, 0);
+		Student i7 = new Instate("Tom", "Cruise", 13, 4000);
+		
+		System.out.println(i6.tuitionDue());
+		System.out.println(i7.tuitionDue());
 	}
 	
 }
