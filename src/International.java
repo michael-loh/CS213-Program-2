@@ -1,92 +1,95 @@
 /**
- * This class serves as an international student representation of the Student class.
- * This class implements the tuitionDue() method following the guidelines of an international student.
- * It also overrides the toString() method by appending on fields from this subclass.
- * @author Michael Loh
+ * This class serves as an out of state student representation of the Student class.
+ * This class implements the tuitionDue() method following the guidelines of an out of state student
+ * This class overrides the toString() method by appending on fields from this subclass.
+ * @author micha
+ *
  */
-public class International extends Student {
+public class Outstate extends Student{
 
-	private final int TUITION = 945;
-	private final int INTERNATIONAL_STUDENT_FEE = 350;
+	private final int TUITION = 756;
 	
-	private boolean exchange;
+	private boolean tristate;
 	
 	/**
-	 * This constructor calls the super constructor with the provided parameters, and it also assigns a value to exchange
-	 * @param fname is sent to the superclass constructor
-	 * @param lname is sent to the superclass constructor
-	 * @param credit is sent to the superclass constructor
-	 * @param exchange describes whether the student is an exchange student or isn't
+	 * This class calls the super class constructor with its associated fields, and it assigns a value to tristate.
+	 * @param fname is sent to the superclass constructor.
+	 * @param lname is sent to the superclass constructor.
+	 * @param credits is sent to the superclass constructor
+	 * @param tristate describes whether or not the student lives within the tristate area.
 	 */
-	public International(String fname, String lname, int credit, boolean exchange) {
-		super(fname, lname, credit);
-		this.exchange = exchange;
+	public Outstate(String fname, String lname, int credits, boolean tristate) {
+		super(fname, lname, credits);
+		this.tristate = tristate;
 	}
 
 	/**
-	 * This method calculates the tuition due for an international student.
-	 * If it is an exchange student, they avoid paying tuition, otherwise, they pay $945 per credit.
-	 * An international student must also pay a full time fee if they take at least 12 credits.
-	 * They would pay a part time fee if they took less than 12 credits.
-	 * An international student must also pay the international student fee, which is 350.
+	 * This class calculates the tuition for an out of state student.
+	 * If the student has at least 12 credits, the student is a full time student and pays a full time fee.
+	 * If the student has less than 12 credits, the student is a part time student and pays a part time fee.
+	 * Each out of state student pays $756 per credit.
+	 * If the student is a full time student and lives in the tristate area, that student pays $200 less per credit.
 	 */
 	@Override
 	public int tuitionDue() {
-		
 		int bill = 0;
 		
 		int creditAmount = Math.min(15, credit);
 		
-		if(exchange) {
+		int tuition = (creditAmount >= 12 && tristate) ? TUITION-200 : TUITION;
+		
+		bill += tuition * creditAmount;
+		
+		if(creditAmount >= 12) {
 			bill += FULL_TIME_FEE;
 		}
 		else {
-			bill += TUITION * creditAmount;
-			if(credit >= 12) {
-				bill += FULL_TIME_FEE;
-			}
-			else {
-				bill += PART_TIME_FEE;
-			}
+			bill += PART_TIME_FEE;
 		}
-		
-		bill += INTERNATIONAL_STUDENT_FEE;
 		
 		return bill;
 	}
 	
 	/**
-	 * This returns all the elements of this object in a string.
-	 * It calls the super classes toString(), then appends on the "exchange" information onto the end of it.
+	 * This returns all elements of this object in a String.
+	 * It calls toString() from the superclass, and then appends on the tristate value onto the end of the string.
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + ",[exchange:" + exchange + "]";
+		return super.toString() + ",[tristate:" + tristate + "]";
 	}
 	
+	
 	/**
-	 * Test bed main.
-	 * Test cases for Outstate are here.
+	 * Test bed main. 
+	 * Test cases for International are here.
 	 * @param args: no command line arguments.
 	 */
 	public static void main(String[]args) {
-		International i1 = new International("Rick", "Sanchez", 11, false);
-		System.out.println(i1.toString());
-		System.out.println(i1.tuitionDue());
+		Outstate o1 = new Outstate("Jon", "Snow", 8, false);
+		System.out.println(o1.toString());
+		System.out.println(o1.tuitionDue());
 		
+		Outstate o2 = new Outstate("Sam", "Tarly", 8, true);
+		System.out.println(o2.tuitionDue());
 		
-		International i2 = new International("Jonathon", "Wang", 12, false);
-		International i3 = new International("Cindy", "Fan", 15, false);
-		International i4 = new International("Allison", "Kwon", 18, false);
-		System.out.println(i2.tuitionDue());
-		System.out.println(i3.tuitionDue());
-		System.out.println(i4.tuitionDue());
-
-		International i5 = new International("Jack", "Ma", 11, true);
-		International i6 = new International("Jackie", "Chan", 13, true);
-		International i7 = new International("Bruce", "Lee", 16, true);
-		System.out.println(i5.tuitionDue());
-		System.out.println(i6.tuitionDue());
-		System.out.println(i7.tuitionDue());
+		Outstate o3 = new Outstate("Ned", "Stark", 15, false);
+		Outstate o4 = new Outstate("Catelyn", "Stark", 16, false);
+		
+		System.out.println(o3.tuitionDue());
+		System.out.println(o4.tuitionDue());
+		
+		Outstate o5 = new Outstate("Jorah", "Mormont", 13, false);
+		Outstate o6 = new Outstate("Tyrion", "Lannister", 13, true);
+		
+		System.out.println(o5.tuitionDue());
+		System.out.println(o6.tuitionDue());
+		
+		System.out.println(o5.compareTo(o5));
+		System.out.println(o5.compareTo(o6));
+		
+		Instate i1 = new Instate("Jorah", "Mormont", 12, 0);
+		
+		System.out.println(i1.compareTo(o5));
 	}
 }
