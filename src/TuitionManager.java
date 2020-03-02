@@ -78,6 +78,7 @@ public class TuitionManager {
 			 return;
 		 }
 		 list.add(s);
+		 System.out.println("Student successfully added");
 	}
 	
 	
@@ -113,6 +114,8 @@ public class TuitionManager {
 		}
 		
 		list.add(s);
+		System.out.println("Student successfully added");
+
 	}
 	/**
 	 * This method adds an international student to the list of students
@@ -144,6 +147,7 @@ public class TuitionManager {
 			 return;
 		 }
 		 list.add(i);
+		 System.out.println("Student successfully added");
 	}
 	/**
 	 * This method checks if the list is empty and prints if it is not empty
@@ -153,7 +157,9 @@ public class TuitionManager {
 			listEmptyError();
 			return;
 		}
+		System.out.println("-- start of list --");
 		list.print();
+		System.out.println("-- end of list --");
 	}
 	
 	
@@ -170,6 +176,10 @@ public class TuitionManager {
 		
 		Student s = new Instate(fname, lname, 0, 0);
 		
+		if(list.isEmpty()) {
+			removeFromEmptyListError();
+			return;
+		}
 		if(!list.contains(s)) {
 			notInListError(fname, lname);
 			return;
@@ -243,4 +253,3 @@ public class TuitionManager {
 		System.out.println("Program Terminated");
 	}
 }
-
